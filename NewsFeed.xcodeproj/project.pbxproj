@@ -17,6 +17,8 @@
 		5CA325711F842AB000018178 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA325701F842AB000018178 /* DataManager.swift */; };
 		5CA325731F842C2C00018178 /* NewsListParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA325721F842C2C00018178 /* NewsListParameter.swift */; };
 		5CA325751F842C6900018178 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA325741F842C6900018178 /* Router.swift */; };
+		6CC0E5711F85268B000564EC /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6CC0E5701F85268B000564EC /* RxSwift.framework */; };
+		6CC0E5731F852CBF000564EC /* RxSwift.framework in Resources */ = {isa = PBXBuildFile; fileRef = 6CC0E5721F852CBF000564EC /* RxSwift.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +34,8 @@
 		5CA325701F842AB000018178 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		5CA325721F842C2C00018178 /* NewsListParameter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsListParameter.swift; sourceTree = "<group>"; };
 		5CA325741F842C6900018178 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
+		6CC0E5701F85268B000564EC /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = Carthage/Build/iOS/RxSwift.framework; sourceTree = "<group>"; };
+		6CC0E5721F852CBF000564EC /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = Carthage/Build/iOS/RxSwift.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -39,6 +43,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6CC0E5711F85268B000564EC /* RxSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -48,8 +53,10 @@
 		5CA3254B1F841A1800018178 = {
 			isa = PBXGroup;
 			children = (
+				6CC0E5721F852CBF000564EC /* RxSwift.framework */,
 				5CA325561F841A1800018178 /* NewsFeed */,
 				5CA325551F841A1800018178 /* Products */,
+				6CC0E56F1F85268A000564EC /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -101,6 +108,14 @@
 				5CA325741F842C6900018178 /* Router.swift */,
 			);
 			path = DataManager;
+			sourceTree = "<group>";
+		};
+		6CC0E56F1F85268A000564EC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6CC0E5701F85268B000564EC /* RxSwift.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -162,6 +177,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6CC0E5731F852CBF000564EC /* RxSwift.framework in Resources */,
 				5CA325621F841A1800018178 /* LaunchScreen.storyboard in Resources */,
 				5CA3255F1F841A1800018178 /* Assets.xcassets in Resources */,
 				5CA3255D1F841A1800018178 /* Main.storyboard in Resources */,
@@ -319,6 +335,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = NewsFeed/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Artak.NewsFeed;
@@ -333,6 +353,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = NewsFeed/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Artak.NewsFeed;

@@ -11,5 +11,10 @@ import Foundation
 protocol Router {
     var params: [String: Any] { get }
     var path: String { get }
-    var httpMethod: String { get }
+    var httpMethod: HttpMethod { get }
+}
+
+enum HttpMethod: String {
+    case post = "POST"
+    case get = "GET"
 }

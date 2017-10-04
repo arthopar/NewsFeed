@@ -12,9 +12,9 @@ class DataManager {
     private static let apiKey = "test"
     private static let baseUrl = "https://content.guardianapis.com/"
     
-    static public func fetchDataForParameter(params: Router, compilation: @escaping (Data?, Error?) -> Void) {
+    static private func fetchDataForParameter(params: Router, compilation: @escaping (Data?, Error?) -> Void) {
         var path = "\(DataManager.baseUrl)\(params.path)?api-key=\(DataManager.apiKey)"
-        if params.httpMethod == "GET" {
+        if params.httpMethod == .get {
             path += params.params.queryString
         }
 
@@ -22,8 +22,8 @@ class DataManager {
 
         let session = URLSession.shared
         var request = URLRequest(url: url)
-        request.httpMethod = params.httpMethod
-        if params.httpMethod == "POST" {
+        request.httpMethod = params.httpMethod.rawValue
+        if params.httpMethod == .post {
             do {
                 request.httpBody = try JSONSerialization.data(withJSONObject: params.params, options: .prettyPrinted)
             } catch let error {
@@ -42,16 +42,22 @@ class DataManager {
 
     public static func fetchNews(params: NewsListParameter, compilation: @escaping (NewsListModel?, Error?) -> Void) {
         fetchDataForParameter(params: params) { json , error in
+            var newsListModel: NewsListModel?
+            var outputError: Error?
+
             if let json = json {
                 let decoder = JSONDecoder()
                 do {
                     let data = try decoder.decode(Response<NewsListModel>.self, from: json)
-                    compilation(data.response, nil)
+                    newsListModel = data.response
                 } catch {
-                    print("error trying to convert data to JSON")
-                    print(error)
-                    compilation(nil, error)
-                }            }
+
+                }
+            } else {
+                outputError = error
+            }
+
+            compilation(newsListModel, outputError)
         }
     }
 }

@@ -14,5 +14,5 @@ struct NewsListParameter: Router {
         return ["page": page]
     }
     var path: String { return "search" }
-    var httpMethod: String { return "GET" }
+    var httpMethod: HttpMethod { return .get }
 }

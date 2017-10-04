@@ -16,11 +16,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        let param = NewsListParameter(page: 1)
-        DataManager.fetchNews(params: param) { (newsList, error) in
-            print(newsList)
-        }
-//        manager.fetchDataForParameter(params: param)
         return true
     }
 

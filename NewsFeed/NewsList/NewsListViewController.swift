@@ -9,10 +9,13 @@
 import UIKit
 
 class NewsListViewController: UIViewController {
+    var viewModel = NewsListViewModel()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+
+        viewModel.getNews()
     }
 
     override func didReceiveMemoryWarning() {
