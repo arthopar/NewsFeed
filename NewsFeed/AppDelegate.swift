@@ -10,15 +10,17 @@ import UIKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
+    let manager = DataManager()
     var window: UIWindow?
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        let manager = DataManager()
         let param = NewsListParameter(page: 1)
-        manager.fetchDataForParameter(params: param)
+        DataManager.fetchNews(params: param) { (newsList, error) in
+            print(newsList)
+        }
+//        manager.fetchDataForParameter(params: param)
         return true
     }
 

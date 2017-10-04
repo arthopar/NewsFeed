@@ -15,11 +15,20 @@ struct NewsListModel: Codable {
     let pageSize: Int
     let currentPage: Int
     
-    let news: [News]
+    let news: [NewsModel]
+
+    enum CodingKeys: String, CodingKey {
+        case news = "results"
+        case status
+        case total
+        case startIndex
+        case pageSize
+        case currentPage
+    }
 }
 
-struct News: Codable {
+struct NewsModel: Codable {
     let webTitle: String
     let webUrl: String
-    let webPublicationDate: Date
+    let webPublicationDate: String
 }
