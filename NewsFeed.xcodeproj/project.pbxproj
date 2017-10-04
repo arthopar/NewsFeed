@@ -17,9 +17,25 @@
 		5CA325711F842AB000018178 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA325701F842AB000018178 /* DataManager.swift */; };
 		5CA325731F842C2C00018178 /* NewsListParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA325721F842C2C00018178 /* NewsListParameter.swift */; };
 		5CA325751F842C6900018178 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA325741F842C6900018178 /* Router.swift */; };
-		6CC0E5711F85268B000564EC /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6CC0E5701F85268B000564EC /* RxSwift.framework */; };
+		5CA325781F8560ED00018178 /* NewsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA325771F8560ED00018178 /* NewsCell.swift */; };
+		5CA325791F8568DD00018178 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6CC0E5701F85268B000564EC /* RxSwift.framework */; };
+		5CA3257A1F8568DD00018178 /* RxSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6CC0E5701F85268B000564EC /* RxSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6CC0E5731F852CBF000564EC /* RxSwift.framework in Resources */ = {isa = PBXBuildFile; fileRef = 6CC0E5721F852CBF000564EC /* RxSwift.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		5CA3257B1F8568DD00018178 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				5CA3257A1F8568DD00018178 /* RxSwift.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		5CA325541F841A1800018178 /* NewsFeed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NewsFeed.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -34,6 +50,7 @@
 		5CA325701F842AB000018178 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		5CA325721F842C2C00018178 /* NewsListParameter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsListParameter.swift; sourceTree = "<group>"; };
 		5CA325741F842C6900018178 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
+		5CA325771F8560ED00018178 /* NewsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsCell.swift; sourceTree = "<group>"; };
 		6CC0E5701F85268B000564EC /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = Carthage/Build/iOS/RxSwift.framework; sourceTree = "<group>"; };
 		6CC0E5721F852CBF000564EC /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = Carthage/Build/iOS/RxSwift.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -43,7 +60,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6CC0E5711F85268B000564EC /* RxSwift.framework in Frameworks */,
+				5CA325791F8568DD00018178 /* RxSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -86,6 +103,7 @@
 		5CA325691F84218600018178 /* NewsList */ = {
 			isa = PBXGroup;
 			children = (
+				5CA325761F8560BA00018178 /* NewsCell */,
 				5CA325591F841A1800018178 /* NewsListViewController.swift */,
 				5CA3256A1F8422F900018178 /* NewsListViewModel.swift */,
 			);
@@ -110,6 +128,14 @@
 			path = DataManager;
 			sourceTree = "<group>";
 		};
+		5CA325761F8560BA00018178 /* NewsCell */ = {
+			isa = PBXGroup;
+			children = (
+				5CA325771F8560ED00018178 /* NewsCell.swift */,
+			);
+			path = NewsCell;
+			sourceTree = "<group>";
+		};
 		6CC0E56F1F85268A000564EC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -128,6 +154,7 @@
 				5CA325501F841A1800018178 /* Sources */,
 				5CA325511F841A1800018178 /* Frameworks */,
 				5CA325521F841A1800018178 /* Resources */,
+				5CA3257B1F8568DD00018178 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -197,6 +224,7 @@
 				5CA325751F842C6900018178 /* Router.swift in Sources */,
 				5CA325581F841A1800018178 /* AppDelegate.swift in Sources */,
 				5CA325731F842C2C00018178 /* NewsListParameter.swift in Sources */,
+				5CA325781F8560ED00018178 /* NewsCell.swift in Sources */,
 				5CA3256B1F8422F900018178 /* NewsListViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

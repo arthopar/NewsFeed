@@ -51,13 +51,15 @@ class DataManager {
                     let data = try decoder.decode(Response<NewsListModel>.self, from: json)
                     newsListModel = data.response
                 } catch {
-
+                    print(error)
                 }
             } else {
                 outputError = error
             }
 
-            compilation(newsListModel, outputError)
+            DispatchQueue.main.async {
+                compilation(newsListModel, outputError)
+            }
         }
     }
 }
