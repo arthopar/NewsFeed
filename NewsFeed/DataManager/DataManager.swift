@@ -48,6 +48,7 @@ class DataManager {
             if let json = json {
                 let decoder = JSONDecoder()
                 do {
+                    decoder.dateDecodingStrategy = .iso8601
                     let data = try decoder.decode(Response<NewsListModel>.self, from: json)
                     newsListModel = data.response
                 } catch {

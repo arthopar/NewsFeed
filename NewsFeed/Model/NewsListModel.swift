@@ -12,7 +12,7 @@ struct NewsListModel: Codable {
     let status: String
     let total: Int
     let startIndex: Int
-    let pageSize: Int
+    let pages: Int
     let currentPage: Int
     
     let news: [NewsModel]
@@ -22,7 +22,7 @@ struct NewsListModel: Codable {
         case status
         case total
         case startIndex
-        case pageSize
+        case pages
         case currentPage
     }
 }
@@ -30,5 +30,5 @@ struct NewsListModel: Codable {
 struct NewsModel: Codable {
     let webTitle: String
     let webUrl: String
-    let webPublicationDate: String
+    let webPublicationDate: Date
 }
