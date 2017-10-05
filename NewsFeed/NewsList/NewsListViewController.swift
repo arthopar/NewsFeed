@@ -45,11 +45,6 @@ final class NewsListViewController: UIViewController, UITableViewDelegate, UITab
         }).addDisposableTo(disposeBag)
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.newsList.value.count
     }
@@ -58,7 +53,6 @@ final class NewsListViewController: UIViewController, UITableViewDelegate, UITab
         let cell = tableView.dequeueReusableCell(withIdentifier: "NewsCell") as! NewsCell
 
         let presentationModel = viewModel.newsList.value[indexPath.row]
-        cell.setupTagView(tags: presentationModel.tags)
         cell.setupCellWith(presentationModel: presentationModel)
 
         return cell
@@ -80,16 +74,15 @@ final class NewsListViewController: UIViewController, UITableViewDelegate, UITab
                                               options: NSStringDrawingOptions.usesLineFragmentOrigin,
                                               attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 17)],
                                               context: nil).size.height
-        totalHeight = titleHeight + 15 // top and bottom margins
-        totalHeight += 37 // date label height and margins
+        totalHeight += titleHeight
+        let tagHeight = presentationModel.attributedString?.boundingRect(with: CGSize(width: Double(labelWidth), height: Double.greatestFiniteMagnitude), options: NSStringDrawingOptions.usesLineFragmentOrigin, context: nil).size.height ?? 0
+    
+        totalHeight += tagHeight
 
-        let rowCount = (presentationModel.tags.count) / 3
-        let stackViewHeight = 21 * rowCount + (rowCount - 1) * 5
-        totalHeight += CGFloat(stackViewHeight)
+        totalHeight += 93
 
-        print("estimated \(indexPath.row) - totalHeight = \(totalHeight) titleHeight = \(titleHeight) rowCount = \(rowCount) stackViewHeight = \(stackViewHeight)")
-
-        return totalHeight + 8
+        print("esetimated \(indexPath.row) - \(totalHeight)")
+        return totalHeight
     }
 }
 

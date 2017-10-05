@@ -58,9 +58,7 @@ class DataManager {
                 outputError = error
             }
 
-            DispatchQueue.main.async {
-                compilation(newsListModel, outputError)
-            }
+            compilation(newsListModel, outputError)
         }
     }
 }

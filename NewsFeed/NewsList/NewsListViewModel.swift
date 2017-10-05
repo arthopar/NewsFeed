@@ -15,6 +15,7 @@ struct NewsListPresentationModel {
     let image: UIImage?
     let title: String
     let tags: [String]
+    let attributedString: NSAttributedString?
 }
 
 final class NewsListViewModel {
@@ -25,6 +26,8 @@ final class NewsListViewModel {
     private var canLoadMore = true
     private var lastPage = 1
 
+    private let labelForSize = UILabel()
+
     func getNews() {
         guard canLoadMore else { return }
 
@@ -33,7 +36,9 @@ final class NewsListViewModel {
         DataManager.fetchNews(params: params) {[weak self] (newsListModel, error) in
             guard let _self = self else { return }
 
-            _self.shouldShowLoading.value = false
+            DispatchQueue.main.async { 
+                _self.shouldShowLoading.value = false
+            }
 
             if newsListModel?.status != "ok" || error != nil {
                 _self.errorMessage.value = error?.localizedDescription ?? "No data found"
@@ -52,9 +57,48 @@ final class NewsListViewModel {
         let presentationModel = newsListModel.news.map ({ newsModel -> NewsListPresentationModel in
             let tags = newsModel.webTitle.split(separator: " ").map(String.init)
             let dateString = formatter.string(from: newsModel.webPublicationDate)
-            return NewsListPresentationModel(dateString: dateString, image: nil, title: newsModel.webTitle, tags: tags)
+            return NewsListPresentationModel(dateString: dateString, image: nil, title: newsModel.webTitle, tags: tags, attributedString: setupAttributedStrings(tags: tags))
         })
 
-        newsList.value += presentationModel
+        DispatchQueue.main.async {[unowned self] in
+            self.newsList.value += presentationModel
+        }
+    }
+
+    func setupAttributedStrings(tags: [String]) -> NSMutableAttributedString {
+        let mutableAttrebutedText = NSMutableAttributedString()
+        for i in 0..<tags.count {
+            mutableAttrebutedText.append(NSAttributedString(string: " "))
+            mutableAttrebutedText.append(labelsString(tags[i]))
+            mutableAttrebutedText.append(NSAttributedString(string: " "))
+        }
+
+        return mutableAttrebutedText
+    }
+
+    func labelsString(_ withString: String) -> NSAttributedString {
+        labelForSize.text = " \(withString) "
+        labelForSize.sizeToFit()
+
+        let renderer = UIGraphicsImageRenderer(size: labelForSize.bounds.size)
+        let image = renderer.image { context in
+            UIColor.darkGray.setFill()
+            var frame = renderer.format.bounds
+            let path = UIBezierPath(roundedRect: frame, cornerRadius: 6)
+            path.fill()
+
+            let attrs: [NSAttributedStringKey : Any] = [.foregroundColor: UIColor.white]
+
+            frame.origin.x += 2
+            frame.origin.y += 2
+            frame.size.width -= 4
+            frame.size.height -= 4
+            let attributedString = NSAttributedString(string: " \(withString) ", attributes: attrs)
+            attributedString.draw(in: frame)
+        }
+
+        let attributedStringTextAttachment = NSTextAttachment()
+        attributedStringTextAttachment.image = image
+        return NSAttributedString(attachment: attributedStringTextAttachment)
     }
 }
