@@ -10,8 +10,15 @@ import Foundation
 
 struct NewsListParameter: Router {
     let page: Int
+    let pageSize: Int?
+
     var params: [String : Any] {
-        return ["page": page]
+        var param = ["page": page]
+        if let pageSize = pageSize {
+            param["page-size"] = pageSize
+        }
+        
+        return param
     }
     var path: String { return "search" }
     var httpMethod: HttpMethod { return .get }

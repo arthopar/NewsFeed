@@ -26,7 +26,9 @@ final class NewsListViewController: UIViewController, UITableViewDelegate, UITab
     }
 
     private func viewModelBinding(viewModel: NewsListViewModel) {
-        viewModel.errorMessage.asObservable().subscribe(onNext: { [unowned self] errorMessage in
+        viewModel.errorMessage.asObservable()
+            .filter{$0 != nil}
+            .subscribe(onNext: { [unowned self] errorMessage in
             let alert = UIAlertController(title: "Error", message: errorMessage, preferredStyle: .alert)
             self.present(alert, animated: true, completion: nil)
         }).addDisposableTo(disposeBag)
@@ -79,10 +81,19 @@ final class NewsListViewController: UIViewController, UITableViewDelegate, UITab
     
         totalHeight += tagHeight
 
-        totalHeight += 93
+        totalHeight += 93 // padding and margins
 
         print("esetimated \(indexPath.row) - \(totalHeight)")
         return totalHeight
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        guard let viewController = self.storyboard?.instantiateViewController(withIdentifier: "NewsDetailsViewController") as? NewsDetailsViewController else { return }
+        let presentationModel = viewModel.newsList.value[indexPath.row]
+        viewController.viewModel = NewsDetailsViewModel(urlString: presentationModel.url)
+        self.navigationController?.pushViewController(viewController, animated: true)
     }
 }
 

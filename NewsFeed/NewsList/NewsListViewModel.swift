@@ -16,23 +16,33 @@ struct NewsListPresentationModel {
     let title: String
     let tags: [String]
     let attributedString: NSAttributedString?
+    let url: String
 }
 
 final class NewsListViewModel {
     let newsList = Variable<[NewsListPresentationModel]>([])
-    let errorMessage = Variable<String>("")
+    let errorMessage = Variable<String?>(nil)
     let shouldShowLoading = Variable<Bool>(false)
 
     private var canLoadMore = true
     private var lastPage = 1
 
     private let labelForSize = UILabel()
+    private var timer: Timer?
+
+    init() {
+        timer = Timer.scheduledTimer(timeInterval: 30, target: self, selector: #selector(self.update), userInfo: nil, repeats: true)
+    }
+
+    @objc func update() {
+        getNews()
+    }
 
     func getNews() {
         guard canLoadMore else { return }
 
         self.shouldShowLoading.value = true
-        let params = NewsListParameter(page: lastPage)
+        let params = NewsListParameter(page: lastPage, pageSize: nil)
         DataManager.fetchNews(params: params) {[weak self] (newsListModel, error) in
             guard let _self = self else { return }
 
@@ -41,7 +51,9 @@ final class NewsListViewModel {
             }
 
             if newsListModel?.status != "ok" || error != nil {
-                _self.errorMessage.value = error?.localizedDescription ?? "No data found"
+                DispatchQueue.main.async {
+                   _self.errorMessage.value = error?.localizedDescription ?? "No data found"
+                }
             } else {
                 _self.canLoadMore = _self.lastPage < newsListModel!.pages
 
@@ -57,7 +69,7 @@ final class NewsListViewModel {
         let presentationModel = newsListModel.news.map ({ newsModel -> NewsListPresentationModel in
             let tags = newsModel.webTitle.split(separator: " ").map(String.init)
             let dateString = formatter.string(from: newsModel.webPublicationDate)
-            return NewsListPresentationModel(dateString: dateString, image: nil, title: newsModel.webTitle, tags: tags, attributedString: setupAttributedStrings(tags: tags))
+            return NewsListPresentationModel(dateString: dateString, image: nil, title: newsModel.webTitle, tags: tags, attributedString: setupAttributedStrings(tags: tags), url:newsModel.webUrl)
         })
 
         DispatchQueue.main.async {[unowned self] in
