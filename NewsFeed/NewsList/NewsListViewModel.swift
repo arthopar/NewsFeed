@@ -23,6 +23,7 @@ final class NewsListViewModel {
     let newsList = Variable<[NewsListPresentationModel]>([])
     let errorMessage = Variable<String?>(nil)
     let shouldShowLoading = Variable<Bool>(false)
+    var pinnedArticles = [String]()
 
     private var canLoadMore = true
     private var lastPage = 1
