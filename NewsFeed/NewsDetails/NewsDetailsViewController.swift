@@ -14,11 +14,18 @@ final class NewsDetailsViewController: UIViewController {
     var viewModel: NewsDetailsViewModel?
     
     @IBOutlet weak var webView: WKWebView!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
         if let request = viewModel?.request {
             webView.load(request)
         }
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(addTapped))
+    }
+    
+    @objc func addTapped() {
+        viewModel?.pinItem()
     }
 }

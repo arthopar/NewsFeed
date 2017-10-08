@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13240" systemVersion="16G29" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="NewsCoraData" representedClassName=".NewsCoraData" syncable="YES">
-        <attribute name="webPublicationDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="webTitle" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="webUrl" optional="YES" attributeType="String" syncable="YES"/>
+    <entity name="NewsCoreData" representedClassName=".NewsCoreData" syncable="YES">
+        <attribute name="id" attributeType="String" syncable="YES"/>
+        <attribute name="thumbnail" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="webPublicationDate" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="webTitle" attributeType="String" syncable="YES"/>
+        <attribute name="webUrl" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="PinnedItemCoreData" representedClassName=".PinnedItemCoreData" syncable="YES">
+        <attribute name="id" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="NewsCoraData" positionX="-63" positionY="-18" width="128" height="90"/>
+        <element name="NewsCoreData" positionX="-63" positionY="-18" width="128" height="120"/>
+        <element name="PinnedItemCoreData" positionX="-63" positionY="18" width="128" height="60"/>
     </elements>
 </model>

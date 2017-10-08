@@ -8,12 +8,14 @@
 
 import Foundation
 import UIKit
+import SDWebImage
 
-class NewsCell: UITableViewCell {
+final class NewsCell: UITableViewCell {
     @IBOutlet weak var title: UILabel!
     @IBOutlet weak var attributedLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
-
+    @IBOutlet weak var thumbnail: UIImageView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
 
@@ -27,5 +29,7 @@ class NewsCell: UITableViewCell {
         self.title.text = presentationModel.title
         self.dateLabel.text = presentationModel.dateString
         self.attributedLabel.attributedText = presentationModel.attributedString
+        let url = URL(string: presentationModel.imageUrl)
+        self.thumbnail.sd_setImageWithPreviousCachedImage(with: url, placeholderImage: nil, options: .refreshCached, progress: nil, completed: nil)
     }
 }

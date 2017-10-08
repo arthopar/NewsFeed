@@ -9,6 +9,6 @@
 import Foundation
 import UIKit
 
-class PinedArticleCollectionViewCell: UICollectionViewCell {
-    
+final class PinedArticleCollectionViewCell: UICollectionViewCell {
+    @IBOutlet weak var title: UILabel!
 }

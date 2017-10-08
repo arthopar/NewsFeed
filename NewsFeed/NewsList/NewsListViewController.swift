@@ -20,22 +20,22 @@ final class NewsListViewController: UIViewController, UITableViewDelegate, UITab
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.rowHeight = UITableViewAutomaticDimension
 
-        self.viewModelBinding(viewModel: viewModel)
+        viewModelBinding(viewModel: viewModel)
         viewModel.getNews()
     }
 
     private func viewModelBinding(viewModel: NewsListViewModel) {
         viewModel.errorMessage.asObservable()
             .filter{$0 != nil}
-            .subscribe(onNext: { [unowned self] errorMessage in
-            let alert = UIAlertController(title: "Error", message: errorMessage, preferredStyle: .alert)
-            self.present(alert, animated: true, completion: nil)
+            .subscribe(onNext: { [unowned self] error in
+                self.handleError(error: error!)
         }).addDisposableTo(disposeBag)
 
         viewModel.newsList.asObservable().subscribe(onNext: { [unowned self] _ in
             self.tableView.reloadData()
+            self.collectionView.reloadData()
         }).addDisposableTo(disposeBag)
 
         viewModel.shouldShowLoading.asObservable().subscribe(onNext: { [unowned self] shouldAnimate in
@@ -48,24 +48,43 @@ final class NewsListViewController: UIViewController, UITableViewDelegate, UITab
         }).addDisposableTo(disposeBag)
     }
     
+    private func handleError(error: Error) {
+        let alert = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
+        let errorCode = (error as NSError).code
+
+        if errorCode == -1009 || errorCode == -999 || errorCode == -1001 {
+            alert.addAction(UIAlertAction(title: "Get cache", style: .default, handler: {[unowned self] _ in
+                self.viewModel.getCachedNews()
+            }))
+        }
+    
+        alert.addAction(UIAlertAction(title: "Close", style: .cancel, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
         guard let viewController = self.storyboard?.instantiateViewController(withIdentifier: "NewsDetailsViewController") as? NewsDetailsViewController else { return }
+
         let presentationModel = viewModel.newsList.value[indexPath.row]
-        viewController.viewModel = NewsDetailsViewModel(urlString: presentationModel.url)
+        viewController.viewModel = NewsDetailsViewModel(urlString: presentationModel.url, id: presentationModel.id)
         self.navigationController?.pushViewController(viewController, animated: true)
     }
 }
 
 extension NewsListViewController {
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 0
+        return viewModel.pinnedItems.count
     }
     
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PinedArticleCollectionViewCell", for: indexPath)
         
+        if let cell = cell as? PinedArticleCollectionViewCell {
+            cell.title.text = viewModel.pinnedItems[indexPath.row].label
+        }
+
         return cell
     }
 }
@@ -76,11 +95,13 @@ extension NewsListViewController {
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "NewsCell") as! NewsCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "NewsCell", for: indexPath)
         
-        let presentationModel = viewModel.newsList.value[indexPath.row]
-        cell.setupCellWith(presentationModel: presentationModel)
-        
+        if let cell = cell as? NewsCell {
+            let presentationModel = viewModel.newsList.value[indexPath.row]
+            cell.setupCellWith(presentationModel: presentationModel)
+        }
+
         return cell
     }
     

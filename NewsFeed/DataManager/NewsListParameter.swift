@@ -10,12 +10,16 @@ import Foundation
 
 struct NewsListParameter: Router {
     let page: Int
-    let pageSize: Int?
+    let pageSize: Int
+    let fromDate: String?
 
     var params: [String : Any] {
-        var param = ["page": page]
-        if let pageSize = pageSize {
-            param["page-size"] = pageSize
+        var param: [String : Any] = ["page": page]
+        param["page-size"] = pageSize
+        param["show-fields"] = "thumbnail"
+
+        if let fromDate = fromDate {
+            param["from-date"] = fromDate
         }
         
         return param

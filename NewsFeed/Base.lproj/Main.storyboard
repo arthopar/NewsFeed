@@ -4,7 +4,6 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -25,29 +24,39 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="64" id="srb-5T-c4h"/>
                                 </constraints>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="1nN-UL-gls">
-                                    <size key="itemSize" width="50" height="50"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="1nN-UL-gls">
+                                    <size key="itemSize" width="100" height="50"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PinedArticleCollectionViewCell" id="lbb-ji-Szw" customClass="PinedArticleCollectionViewCell" customModule="NewsFeed" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        <rect key="frame" x="0.0" y="7" width="100" height="50"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="100" height="50"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qmr-At-lLm">
-                                                    <rect key="frame" x="4" y="14" width="42" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qmr-At-lLm">
+                                                    <rect key="frame" x="0.0" y="0.0" width="100" height="50"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                         </view>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstItem="qmr-At-lLm" firstAttribute="top" secondItem="lbb-ji-Szw" secondAttribute="top" id="8z3-S6-Zbd"/>
+                                            <constraint firstAttribute="trailing" secondItem="qmr-At-lLm" secondAttribute="trailing" id="EMj-t5-tT4"/>
+                                            <constraint firstAttribute="bottom" secondItem="qmr-At-lLm" secondAttribute="bottom" id="ORs-BQ-cx3"/>
+                                            <constraint firstItem="qmr-At-lLm" firstAttribute="leading" secondItem="lbb-ji-Szw" secondAttribute="leading" id="kDN-3U-YB3"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="title" destination="qmr-At-lLm" id="w19-we-Ldx"/>
+                                        </connections>
                                     </collectionViewCell>
                                 </cells>
                                 <connections>
@@ -113,6 +122,7 @@
                                         <connections>
                                             <outlet property="attributedLabel" destination="EC2-kI-XJ2" id="VyY-l8-5cz"/>
                                             <outlet property="dateLabel" destination="j98-K9-zE2" id="l4t-vE-rTL"/>
+                                            <outlet property="thumbnail" destination="zOM-Ya-97b" id="Rzh-Sc-jcg"/>
                                             <outlet property="title" destination="sLS-nK-HAY" id="BHH-by-d6l"/>
                                         </connections>
                                     </tableViewCell>

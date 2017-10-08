@@ -9,14 +9,21 @@
 import Foundation
 
 final class NewsDetailsViewModel {
-    let urlString: String
-    
+    private let urlString: String
+    private let id: String
+
+    init(urlString: String, id: String) {
+        self.urlString = urlString
+        self.id = id
+    }
+
     var request: URLRequest? {
         guard let url = URL(string: urlString) else { return nil }
 
-        return URLRequest(url: url)
+        return URLRequest(url: url, cachePolicy:  NSURLRequest.CachePolicy.returnCacheDataElseLoad, timeoutInterval: TimeInterval(10))
     }
-    init(urlString: String) {
-        self.urlString = urlString
+    
+    func pinItem() {
+        DataManager.savePinnedNews(id: id)
     }
 }

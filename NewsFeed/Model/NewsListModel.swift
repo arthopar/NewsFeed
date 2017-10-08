@@ -28,7 +28,13 @@ struct NewsListModel: Codable {
 }
 
 struct NewsModel: Codable {
+    let id: String
     let webTitle: String
     let webUrl: String
     let webPublicationDate: Date
+    let fields: Fields?
+}
+
+struct Fields: Codable {
+    let thumbnail: String
 }

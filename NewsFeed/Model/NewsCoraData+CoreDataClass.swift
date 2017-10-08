@@ -1,5 +1,5 @@
 //
-//  NewsCoraData+CoreDataClass.swift
+//  NewsCoreData+CoreDataClass.swift
 //  NewsFeed
 //
 //  Created by Artak Tsatinyan on 10/6/17.
@@ -11,6 +11,6 @@ import Foundation
 import CoreData
 
 
-public class NewsCoraData: NSManagedObject {
+public class NewsCoreData: NSManagedObject {
 
 }
